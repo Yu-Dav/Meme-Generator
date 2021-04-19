@@ -16,12 +16,29 @@
         <div class="canvas-container">
             <canvas id="my-canvas" height="500" width="500"></canvas>
         </div>
+        <div class="editor-controllers">
+            <label for="meme-text">Text:</label>
+            <input type="text" id="meme-text" oninput="onTextChange(this.value)">
+            <div class="font-size-selectors">
+                <button onclick="onChangeFontSize(this.dataset.size)" data-size="2">+</button>
+                <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2">-</button>
+            </div>
+            <div class="move-line-selectors">
+                <button onclick="onChangeLineX(this.dataset.line)" data-line="-5">Left</button>
+                <button onclick="onChangeLineY(this.dataset.line)" data-line="-5">Up</button>
+                <button onclick="onChangeLineY(this.dataset.line)" data-line="5">Down</button>
+                <button onclick="onChangeLineX(this.dataset.line)" data-line="5">Right</button>
+            </div>
+            <button onclick="onChangeLine()">Change Line</button>
+        </div>
     </section>
+
+
     <section class="image-gallery">
         <div class="gallery-container">
-            <img onclick="onSelectImage(this)" data-img-id="1" src="imgs-square/1.jpg" alt="Image 1">
-            <img  onclick="onSelectImage(this)" data-img-id="2" src="imgs-square/2.jpg" alt="Image 2">
-            <img  onclick="onSelectImage(this)" data-img-id="3" src="imgs-square/3.jpg" alt="Image 3">
+            <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="1" src="imgs-square/1.jpg" alt="Image 1">
+            <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="2" src="imgs-square/2.jpg" alt="Image 2">
+            <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="3" src="imgs-square/3.jpg" alt="Image 3">
         </div>
     </section>
     <script src="js/touch.service.js"></script>
