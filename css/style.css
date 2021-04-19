@@ -1,0 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* background-image: url("../img/bcg-img/bcg.jpeg"); */
+    background-color: #cccccc;
+    margin: 0;
+}
