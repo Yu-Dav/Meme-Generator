@@ -3,7 +3,38 @@
 }
 
 body {
-    /* background-image: url("../img/bcg-img/bcg.jpeg"); */
     background-color: #cccccc;
     margin: 0;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgb(228, 228, 231);
+}
+
+.canvas-container {
+    /* background-image: url("../img/paper.jpeg"); */
+    background-color: rgb(243, 241, 232);
+    margin: 0 auto;
+    width: 50vw;
+    height: 50vh;
+    border: 1px solid rgb(228, 228, 231);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.gallery-container {
+    /* height: 40vh; */
+    width: 100%;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.gallery-container img {
+    object-fit: contain;
+    /* height: 50%; */
 }

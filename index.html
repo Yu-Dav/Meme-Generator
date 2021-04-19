@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +8,26 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Meme Generator</title>
 </head>
-<body>
-    <h1>Meme Generator</h1>
 
+<body onload="onInit()">
+
+    <h1>Meme Generator</h1>
+    <section class="meme-editor-container">
+        <div class="canvas-container">
+            <canvas id="my-canvas" height="500" width="500"></canvas>
+        </div>
+    </section>
+    <section class="image-gallery">
+        <div class="gallery-container">
+            <img onclick="onSelectImage(this)" data-img-id="1" src="imgs-square/1.jpg" alt="Image 1">
+            <img  onclick="onSelectImage(this)" data-img-id="2" src="imgs-square/2.jpg" alt="Image 2">
+            <img  onclick="onSelectImage(this)" data-img-id="3" src="imgs-square/3.jpg" alt="Image 3">
+        </div>
+    </section>
+    <script src="js/touch.service.js"></script>
     <script src="js/storage.service.js"></script>
     <script src="js/meme.service.js"></script>
     <script src="js/app.controller.js"></script>
 </body>
+
 </html>
