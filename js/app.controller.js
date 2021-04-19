@@ -8,6 +8,7 @@ function onInit() {
     gCtx = gCanvas.getContext('2d');
     addListeners(gCanvas);
     renderCanvas();
+    renderImgGallery();
 }
 
 function renderCanvas() {
@@ -25,7 +26,7 @@ function renderCanvas() {
 
 function drawText(line, x, y) {
     const lines = line.lines;
-    console.log ('lines =',lines)
+    console.log('lines =', lines)
     lines.forEach(line => {
         gCtx.lineWidth = 1
         gCtx.font = `${line.size}px Impact`;
@@ -37,7 +38,19 @@ function drawText(line, x, y) {
     });
 }
 
+function renderImgGallery() {
+    var imgs = getImgs();
+    var strHTMLs = imgs.map(img => {
+        return `
+        <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="${img.id}" src="imgs-square/${img.id}.jpg" alt="Image ${img.id}">
+        `
+    });
+    var elGallery = document.querySelector('.gallery-container');
+    elGallery.innerHTML = strHTMLs.join('');
+}
+
 function onSelectImage(imgId) {
+    document.querySelector('.meme-editor-container').style.display = 'flex';
     updateMeme('img', imgId);
     renderCanvas();
 }

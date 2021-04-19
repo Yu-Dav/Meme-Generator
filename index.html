@@ -10,35 +10,52 @@
 </head>
 
 <body onload="onInit()">
+    <header class="flex f-row f-justify f-align-center">
+        <div class="logo">
+            <h1 class="fa fa-meteor">Meme Generator</h1>
+        </div>
+        <nav>
+            <ul class="clean-list flex f-row">
+                <li>Gallery</li>
+                <li>Memes</li>
+            </ul>
+        </nav>
+    </header>
+    <section class="meme-editor-container ">
+        <div class="container flex f-row f-align-center f-justify">
+            <div class="canvas-container">
+                <canvas id="my-canvas" height="500" width="500"></canvas>
+            </div>
+            <div class="editor-controllers flex f-column f-align-center ">
+                <div class="text-selectors flex f-column f-align-center">
+                    <div class="text">
+                        <label for="meme-text">Text:</label>
+                        <input type="text" id="meme-text" oninput="onTextChange(this.value)">
+                    </div>
+                    <div class="font-size-selectors">
+                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="2">+</button>
+                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2">-</button>
+                    </div>
+                </div>
+                <div class="move-line-selectors">
+                    <button onclick="onChangeLineX(this.dataset.line)" data-line="-5">Left</button>
+                    <button onclick="onChangeLineY(this.dataset.line)" data-line="-5">Up</button>
+                    <button onclick="onChangeLineY(this.dataset.line)" data-line="5">Down</button>
+                    <button onclick="onChangeLineX(this.dataset.line)" data-line="5">Right</button>
+                </div>
+                <button onclick="onChangeLine()">Change Line</button>
+            </div>
+        </div>
 
-    <h1>Meme Generator</h1>
-    <section class="meme-editor-container">
-        <div class="canvas-container">
-            <canvas id="my-canvas" height="500" width="500"></canvas>
-        </div>
-        <div class="editor-controllers">
-            <label for="meme-text">Text:</label>
-            <input type="text" id="meme-text" oninput="onTextChange(this.value)">
-            <div class="font-size-selectors">
-                <button onclick="onChangeFontSize(this.dataset.size)" data-size="2">+</button>
-                <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2">-</button>
-            </div>
-            <div class="move-line-selectors">
-                <button onclick="onChangeLineX(this.dataset.line)" data-line="-5">Left</button>
-                <button onclick="onChangeLineY(this.dataset.line)" data-line="-5">Up</button>
-                <button onclick="onChangeLineY(this.dataset.line)" data-line="5">Down</button>
-                <button onclick="onChangeLineX(this.dataset.line)" data-line="5">Right</button>
-            </div>
-            <button onclick="onChangeLine()">Change Line</button>
-        </div>
     </section>
 
 
     <section class="image-gallery">
-        <div class="gallery-container">
-            <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="1" src="imgs-square/1.jpg" alt="Image 1">
-            <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="2" src="imgs-square/2.jpg" alt="Image 2">
-            <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="3" src="imgs-square/3.jpg" alt="Image 3">
+
+        <div class="container">
+            <div class="gallery-container">
+                <!-- Images injected here -->
+            </div>
         </div>
     </section>
     <script src="js/touch.service.js"></script>
