@@ -123,6 +123,12 @@
     <section class="image-gallery">
 
         <div class="container">
+            <input type="file" class="" name="image" onchange="onImgInput(event)" />
+            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                <input name="img" id="imgData" type="hidden" />
+                <!-- <button class="btn" type="submit">Publish</button> -->
+                <div class="share-container"></div>
+            </form>
             <div class="gallery-container">
                 <!-- Images injected here -->
             </div>

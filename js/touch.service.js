@@ -31,11 +31,13 @@ function onDown(ev) {
         // onCanvasClick(ev);
         return;
     }
+    // Should this be done here... Or in meme service..? 
+    getMeme().lines.forEach(line => line.isFocused = false);
+    line.isFocused = true;
     const pos = getEvPos(ev);
     line.isDragging = true;
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
-
 }
 
 function findIfLine(ev) {
@@ -51,7 +53,6 @@ function onMove(ev) {
     var lines = meme.lines;
     lines.forEach(line => {
         if (line.isDragging) {
-            console.log('moving shape =', line)
             const pos = getEvPos(ev)
             const dx = pos.x - gStartPos.x
             const dy = pos.y - gStartPos.y
@@ -60,7 +61,6 @@ function onMove(ev) {
             line.x = pos.x
             line = pos.y
             gStartPos = pos
-            
             // setTimeout(drawText, .3)
             renderCanvas();
             // drawText();

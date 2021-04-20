@@ -3,25 +3,31 @@
 var gKeywords = { 'happy': 12, 'funny': 1, 'pets': 8, 'cute': 4, 'baby': 3, 'politics': 2 }
 
 var gImgs = [
-    { id: 1, url: 'imgs-square/1.jpg', keywords: ['politics'] },
-    { id: 2, url: 'imgs-square/2.jpg', keywords: ['pets', 'cute'] },
-    { id: 3, url: 'imgs-square/3.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 4, url: 'imgs-square/4.jpg', keywords: ['pets', 'cute'] },
-    { id: 5, url: 'imgs-square/5.jpg', keywords: ['baby'] },
-    { id: 6, url: 'imgs-square/6.jpg', keywords: ['funny', 'serious'] },
-    { id: 7, url: 'imgs-square/7.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 8, url: 'imgs-square/8.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 9, url: 'imgs-square/9.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 10, url: 'imgs-square/10.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 11, url: 'imgs-square/11.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 12, url: 'imgs-square/12.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 13, url: 'imgs-square/13.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 14, url: 'imgs-square/14.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 15, url: 'imgs-square/15.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 16, url: 'imgs-square/16.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 17, url: 'imgs-square/17.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 18, url: 'imgs-square/18.jpg', keywords: ['pets', 'cute', 'baby'] },
-    { id: 19, url: 'imgs-square/19.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 1, url: 'imgs/1.jpg', keywords: ['politics'] },
+    { id: 2, url: 'imgs/2.jpg', keywords: ['pets', 'cute'] },
+    { id: 3, url: 'imgs/3.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 4, url: 'imgs/4.jpg', keywords: ['pets', 'cute'] },
+    { id: 5, url: 'imgs/5.jpg', keywords: ['baby'] },
+    { id: 6, url: 'imgs/6.jpg', keywords: ['funny', 'serious'] },
+    { id: 7, url: 'imgs/7.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 8, url: 'imgs/8.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 9, url: 'imgs/9.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 10, url: 'imgs/10.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 11, url: 'imgs/11.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 12, url: 'imgs/12.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 13, url: 'imgs/13.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 14, url: 'imgs/14.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 15, url: 'imgs/15.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 16, url: 'imgs/16.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 17, url: 'imgs/17.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 18, url: 'imgs/18.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 19, url: 'imgs/19.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 20, url: 'imgs/20.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 21, url: 'imgs/21.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 22, url: 'imgs/22.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 23, url: 'imgs/23.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 24, url: 'imgs/24.jpg', keywords: ['pets', 'cute', 'baby'] },
+    { id: 25, url: 'imgs/25.jpg', keywords: ['pets', 'cute', 'baby'] },
 ];
 
 var gMeme = {
@@ -136,4 +142,13 @@ function getMeme() {
     return gMeme;
 }
 
-
+function addNewImgToData(url) {
+    // console.log('adding new photo!')
+    // console.log('var =', url)
+    const newImg = {
+        id: gImgs.length + 1,
+        url
+    }
+    gMeme.selectedImgId = gImgs.length + 1;
+    gImgs.push(newImg);
+}

@@ -2,6 +2,7 @@
 
 var gCanvas;
 var gCtx;
+var gImg;
 
 function onInit() {
     gCanvas = document.querySelector('canvas');
@@ -14,13 +15,14 @@ function onInit() {
 
 function renderCanvas() {
     const meme = getMeme();
-    console.log('meme =', meme)
     var img = new Image();
-    img.src = `imgs/${meme.selectedImgId}.jpg`;
+    img.src = getImgs()[meme.selectedImgId - 1].url;
     img.onload = () => {
         // gCanvas.width = img.naturalWidth;
         // gCanvas.height = img.naturalHeight;
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        // gCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+        // gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height * img.width / img.height);
         drawText();
     }
     resizeCanvas();
@@ -31,27 +33,26 @@ function drawText() {
     // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     lines.forEach(line => {
         // switch back to 1 canvas if this won't actually help.
-        var vrtCanvas = document.createElement('canvas');
-        vrtCanvas.width = 500;
-        vrtCanvas.height = 500;
-        var vrtCtx = vrtCanvas.getContext('2d');
-        vrtCtx.lineWidth = line.strokeWidth
-        vrtCtx.font = `${line.size}px ${line.font}`;
-        vrtCtx.textAlign = line.align;
-        vrtCtx.fillStyle = line.fill;
-        // console.log ('Width =',gCtx.measureText(line.txt).width)
-        // console.log ('Height =',gCtx.measureText(line.txt).height)
-        vrtCtx.strokeStyle = line.stroke;
-        vrtCtx.fillText(line.txt, line.x, line.y);
-        vrtCtx.strokeText(line.txt, line.x, line.y);
+        // var vrtCanvas = document.createElement('canvas');
+        // vrtCanvas.width = 500;
+        // vrtCanvas.height = 500;
+        // var vrtCtx = vrtCanvas.getContext('2d');
+        gCtx.lineWidth = line.strokeWidth
+        gCtx.font = `${line.size}px ${line.font}`;
+        gCtx.textAlign = line.align;
+        gCtx.fillStyle = line.fill;
+        gCtx.strokeStyle = line.stroke;
+        gCtx.fillText(line.txt, line.x, line.y);
+        gCtx.strokeText(line.txt, line.x, line.y);
         if (line.isFocused) {
-            // var height = line.size * 1.5;
-            var height = line.size * 1.25;
-            var width = vrtCtx.measureText(line.txt).width
-            vrtCtx.strokeStyle = 'white';
-            vrtCtx.strokeRect(line.x - width / 2, line.y - height + 20, vrtCtx.measureText(line.txt).width, line.size + 20);
+            // const height = line.size * 1.5;
+            // const height = line.size * 1.25;
+            const height = line.size;
+            const width = gCtx.measureText(line.txt).width
+            gCtx.strokeStyle = 'white';
+            gCtx.strokeRect(line.x - width / 2 - 10, line.y - height, gCtx.measureText(line.txt).width + 20, line.size + 15);
         }
-        gCtx.drawImage(vrtCanvas, 0, 0, gCanvas.width, gCanvas.height);
+        // gCtx.drawImage(vrtCanvas, 0, 0, gCanvas.width, gCanvas.height);
     });
 }
 
@@ -153,7 +154,36 @@ shareButton.addEventListener("click", async () => {
 });
 
 function renderShareOptions() {
+    /// func fires when web share API is not supported. 
     console.log('Share to Facebook =')
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderImg)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    // document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader()
+    reader.onload = function (event) {
+        var url = event.target.result
+        var img = new Image()
+        img.onload = onImageReady.bind(null, img)
+        img.src = url
+        gImg = img
+        addNewImgToData(url)
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+
+
+
+function renderImg(img) {
+    document.querySelector('.meme-editor-container').style.display = 'flex';
+    // renderCanvas();
+    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+    drawText();
 }
 
 
@@ -161,7 +191,6 @@ function renderShareOptions() {
 //     console.log('var =')
 
 // }
-
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
