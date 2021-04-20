@@ -22,8 +22,6 @@ function renderCanvas() {
     img.onload = () => {
         // gCanvas.width = img.naturalWidth;
         // gCanvas.height = img.naturalHeight;
-
-        /// Focus here rgd img proportions. 
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         drawText();
     }
@@ -32,17 +30,23 @@ function renderCanvas() {
 
 function drawText() {
     const lines = getMeme().lines;
+    // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     lines.forEach(line => {
-        // gCtx.transform(-1, 0, 0, 1, 100, 0);
-        gCtx.lineWidth = line.strokeWidth
-        gCtx.font = `${line.size}px ${line.font}`;
-        gCtx.textAlign = line.align;
-        gCtx.fillStyle = line.fill;
+
+        var vrtCanvas = document.createElement('canvas');
+        vrtCanvas.width = 500;
+        vrtCanvas.height = 500;
+        var vrtCtx = vrtCanvas.getContext('2d');
+        vrtCtx.lineWidth = line.strokeWidth
+        vrtCtx.font = `${line.size}px ${line.font}`;
+        vrtCtx.textAlign = line.align;
+        vrtCtx.fillStyle = line.fill;
         // console.log ('Width =',gCtx.measureText(line.txt).width)
         // console.log ('Height =',gCtx.measureText(line.txt).height)
-        gCtx.fillText(line.txt, line.x, line.y);
-        gCtx.strokeStyle = line.stroke;
-        gCtx.strokeText(line.txt, line.x, line.y);
+        vrtCtx.fillText(line.txt, line.x, line.y);
+        vrtCtx.strokeStyle = line.stroke;
+        vrtCtx.strokeText(line.txt, line.x, line.y);
+        gCtx.drawImage(vrtCanvas, 0, 0, gCanvas.width, gCanvas.height);
     });
 }
 
@@ -72,14 +76,8 @@ function renderSavedMemes() {
     }
     var strHTMLs = memes.map(meme => {
         return `
-        <img onclick="onSavedMemeClick('${meme.id}')" data-id="${meme.id}" src="${meme.url}" alt="Saved meme">
+        <img onclick="onSavedMemeClick('${meme.id}')" src="${meme.url}" alt="Saved meme">
         `
-        var img = new Image();
-        img.dataset.id = meme.id
-        img.src = meme.url;
-        console.log('img =', img)
-        img.onclick = onSavedMemeClick;
-        document.querySelector('.saved-memes-modal').append(img);
     });
     document.querySelector('.saved-memes-container').innerHTML = strHTMLs.join('');
 }
@@ -119,77 +117,11 @@ function onOpenClearConfirm() {
 
 function onCloseClearConfirm() {
     document.querySelector('.clear-confirm').hidden = true;
-
 }
 
 function onClearSavedMemes() {
     localStorage.clear();
     onCloseSavedModal();
-}
-
-function onTextChange(txt) {
-    updateMeme('txt', txt);
-    renderCanvas();
-}
-
-function onChangeFontSize(dif) {
-    dif = +dif;
-    updateMeme('fontSize', dif);
-    renderCanvas();
-}
-
-function onFillChange(clr) {
-    updateMeme('fill', clr);
-    renderCanvas();
-
-}
-
-function onStrokeChange(clr) {
-    updateMeme('stroke', clr);
-    renderCanvas();
-}
-
-function onChangeStokeWidth(dif) {
-    dif = +dif;
-    updateMeme('stokeWidth', dif);
-    renderCanvas();
-}
-
-function onFontChange(font) {
-    updateMeme('font', font);
-    renderCanvas();
-}
-
-function onTextAlign(align) {
-    console.log('align =', align)
-    updateMeme('align', align);
-    renderCanvas();
-}
-
-function onChangeLineY(dif) {
-    dif = +dif;
-    updateMeme('lineY', dif);
-    renderCanvas();
-}
-function onChangeLineX(dif) {
-    dif = +dif;
-    updateMeme('lineX', dif);
-    renderCanvas();
-}
-
-function onChangeLine() {
-    changeCurrLine();
-    renderPlaceHolder();
-}
-
-function onRemoveLine() {
-    removeLine();
-    renderCanvas();
-}
-
-function onAddLine() {
-    addLine();
-    renderCanvas();
 }
 
 // ACTIONS
@@ -205,10 +137,21 @@ function onSave() {
     saveMeme(data)
 }
 
-function onShare() {
-    console.log('var =')
+var shareButton = document.querySelector('.btn-share')
+shareButton.addEventListener("click", async () => {
+    try {
+        await navigator.share({ title: "Example Page", url: "" });
+        console.log("Data was shared successfully");
+    } catch (err) {
+        console.error("Share failed:", err.message);
+    }
+});
 
-}
+
+// function onShare() {
+//     console.log('var =')
+
+// }
 
 
 function resizeCanvas() {

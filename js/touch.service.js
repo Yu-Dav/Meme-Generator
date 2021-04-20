@@ -60,7 +60,10 @@ function onMove(ev) {
             line.x = pos.x
             line = pos.y
             gStartPos = pos
+            
+            // setTimeout(drawText, .3)
             renderCanvas();
+            // drawText();
         }
     });
 }
@@ -73,7 +76,7 @@ function onUp() {
 }
 
 function getEvPos(ev) {
-    const pos = {
+    var pos = {
         x: ev.offsetX,
         y: ev.offsetY
     }

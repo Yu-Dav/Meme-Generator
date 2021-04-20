@@ -30,24 +30,28 @@ var gMeme = {
     lines: [{
         txt: 'Whoop Whoop!',
         size: 50,
-        align: 'left',
+        align: 'center',
         fill: 'white',
         stroke: 'red',
-        x: 100,
+        x: 250,
         y: 50,
         font: 'impact',
-        strokeWidth: 1
+        strokeWidth: 1,
+        isFocused: true
+
     },
     {
         txt: 'Yay!',
         size: 75,
-        align: 'left',
+        align: 'center',
         fill: 'lightblue',
         stroke: 'red',
-        x: 175,
+        x: 250,
         y: 490,
         font: 'impact',
-        strokeWidth: 3
+        strokeWidth: 3,
+        isFocused: false
+
 
     }]
 }
@@ -116,7 +120,8 @@ function addLine() {
         x: 125,
         y: 220,
         font: 'impact',
-        strokeWidth: 1
+        strokeWidth: 1,
+        isFocused: false
     }
     gMeme.lines.push(line);
 }
