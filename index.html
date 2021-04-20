@@ -100,6 +100,7 @@
                         class="btn-round btn-direct">Down</button>
                     <button onclick="onChangeLineX(this.dataset.line)" data-line="5"
                         class="btn-round btn-direct">Right</button>
+                    <input oninput="onInputChange(this.value)" type="range" min="0" max="500" step="10">
                 </div>
                 <div class="line-selectors">
                     <button onclick="onRemoveLine()" class="btn-round btn-line">Remove Line</button>

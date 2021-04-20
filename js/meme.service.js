@@ -38,7 +38,6 @@ var gMeme = {
         font: 'impact',
         strokeWidth: 1,
         isFocused: true
-
     },
     {
         txt: 'Yay!',
@@ -51,8 +50,6 @@ var gMeme = {
         font: 'impact',
         strokeWidth: 3,
         isFocused: false
-
-
     }]
 }
 
@@ -74,6 +71,8 @@ function updateMeme(key, val) {
     if (key === 'fontSize') currMemeLine.size = currMemeLine.size + val;
     if (key === 'lineY') currMemeLine.y = currMemeLine.y + val;
     if (key === 'lineX') currMemeLine.x = currMemeLine.x + val;
+    if (key === 'x') currMemeLine.x = val;
+    if (key === 'y') currMemeLine.y = val;
     if (key === 'fill') currMemeLine.fill = val;
     if (key === 'stroke') currMemeLine.stroke = val;
     if (key === 'font') currMemeLine.font = val;
@@ -127,12 +126,12 @@ function addLine() {
 }
 
 function changeCurrLine() {
-    if (gMeme.selectedLineIdx === 0) {
-        gMeme.selectedLineIdx = 1;
-        return;
-    }
-    gMeme.selectedLineIdx = 0
+    gMeme.lines[gMeme.selectedLineIdx].isFocused = false;
+    gMeme.selectedLineIdx++;
+    if (gMeme.selectedLineIdx > gMeme.lines.length - 1) gMeme.selectedLineIdx = 0;
+    gMeme.lines[gMeme.selectedLineIdx].isFocused = true;
 }
+
 function getMeme() {
     return gMeme;
 }

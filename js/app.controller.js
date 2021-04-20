@@ -7,8 +7,6 @@ function onInit() {
     gCanvas = document.querySelector('canvas');
     console.log('gCanvas =', gCanvas)
     gCtx = gCanvas.getContext('2d');
-    // gCanvas.setAttribute('tabindex','0');
-    // gCanvas.focus();
     addListeners(gCanvas);
     // renderCanvas();
     renderImgGallery();
@@ -32,7 +30,7 @@ function drawText() {
     const lines = getMeme().lines;
     // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     lines.forEach(line => {
-
+        // switch back to 1 canvas if this won't actually help.
         var vrtCanvas = document.createElement('canvas');
         vrtCanvas.width = 500;
         vrtCanvas.height = 500;
@@ -43,9 +41,16 @@ function drawText() {
         vrtCtx.fillStyle = line.fill;
         // console.log ('Width =',gCtx.measureText(line.txt).width)
         // console.log ('Height =',gCtx.measureText(line.txt).height)
-        vrtCtx.fillText(line.txt, line.x, line.y);
         vrtCtx.strokeStyle = line.stroke;
+        vrtCtx.fillText(line.txt, line.x, line.y);
         vrtCtx.strokeText(line.txt, line.x, line.y);
+        if (line.isFocused) {
+            // var height = line.size * 1.5;
+            var height = line.size * 1.25;
+            var width = vrtCtx.measureText(line.txt).width
+            vrtCtx.strokeStyle = 'white';
+            vrtCtx.strokeRect(line.x - width / 2, line.y - height + 20, vrtCtx.measureText(line.txt).width, line.size + 20);
+        }
         gCtx.drawImage(vrtCanvas, 0, 0, gCanvas.width, gCanvas.height);
     });
 }
@@ -140,12 +145,16 @@ function onSave() {
 var shareButton = document.querySelector('.btn-share')
 shareButton.addEventListener("click", async () => {
     try {
-        await navigator.share({ title: "Example Page", url: "" });
-        console.log("Data was shared successfully");
+        await navigator.share({ title: "Meme Generator", url: "" });
     } catch (err) {
         console.error("Share failed:", err.message);
+        renderShareOptions();
     }
 });
+
+function renderShareOptions() {
+    console.log('Share to Facebook =')
+}
 
 
 // function onShare() {

@@ -1,8 +1,12 @@
 'use strict';
 
+var gLastChangedDirect;
+
 function onTextChange(txt) {
     updateMeme('txt', txt);
-    drawText()
+    renderCanvas();
+
+    // drawText()
 }
 
 function onChangeFontSize(dif) {
@@ -40,19 +44,37 @@ function onTextAlign(align) {
 }
 
 function onChangeLineY(dif) {
+    console.log('dif =', dif)
+    if (dif > 0) gLastChangedDirect = 'down';
+    if (dif < 0) gLastChangedDirect = 'up';
     dif = +dif;
     updateMeme('lineY', dif);
     renderCanvas();
 }
 function onChangeLineX(dif) {
+    if (dif > 0) gLastChangedDirect = 'right';
+    if (dif < 0) gLastChangedDirect = 'left';
     dif = +dif;
     updateMeme('lineX', dif);
     renderCanvas();
 }
 
+function onInputChange(val) {
+    if (!gLastChangedDirect) return;
+    if (gLastChangedDirect === 'right' || gLastChangedDirect === 'left') {
+        updateMeme('x', val);
+        renderCanvas();
+        return;
+    }
+    updateMeme('y', val);
+    renderCanvas();
+
+}
+
 function onChangeLine() {
     changeCurrLine();
     renderPlaceHolder();
+    renderCanvas();
 }
 
 function onRemoveLine() {
