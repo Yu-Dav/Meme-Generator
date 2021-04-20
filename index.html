@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/png" href="imgs/icons/favicon-copy.png" />
     <title>Meme Generator</title>
 </head>
 
@@ -22,7 +23,7 @@
         </nav>
     </header>
     <section class="meme-editor-container ">
-        <div class="container flex f-row f-align-center f-justify">
+        <div class="container flex f-column f-align-center f-justify">
             <div class="canvas-container">
                 <canvas id="my-canvas" height="500" width="500"></canvas>
             </div>
@@ -33,17 +34,46 @@
                         <input type="text" id="meme-text" oninput="onTextChange(this.value)">
                     </div>
                     <div class="font-size-selectors">
-                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="2">+</button>
-                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2">-</button>
+                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="2"
+                            class="img-size btn-round btn-fonts"><img src="imgs/icons/increase-font.png"
+                                alt="Increase font"></button>
+                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2"
+                            class="img-size btn-round btn-fonts"><img src="imgs/icons/decrease-font.png"
+                                alt="Decrease Font"></button>
+                        <button class="img-size btn-round btn-fonts"><input type="color"
+                                oninput="onFillChange(this.value)">Fill</button>
+                        <button class="img-size btn-round btn-fonts"><input type="color"
+                                oninput="onStrokeChange(this.value)"> Stroke</button>
+                    </div>
+                    <div class="font-size-selectors">
+                        <select onchange="onFontChange(this.value)">
+                            <option value="impact">Impact</option>
+                            <option value="helvetica">Helvetica</option>
+                            <option value="courier">Courier</option>
+                        </select>
+                        <button onclick="onTextAlign(this.dataset.align)" data-align="left"
+                            class="img-size btn-round btn-fonts"><img src="imgs/icons/align-to-left.png"
+                                alt="Align left"></button>
+                        <button onclick="onTextAlign(this.dataset.align)" data-align="center"
+                            class="img-size btn-round btn-fonts"><img src="imgs/icons/center-text-alignment.png"
+                                alt="Align Center"></button>
+                        <button onclick="onTextAlign(this.dataset.align)" data-align="right"
+                            class="img-size btn-round btn-fonts"><img src="imgs/icons/align-to-right.png"
+                                alt="Align Right"></button>
+
                     </div>
                 </div>
                 <div class="move-line-selectors">
-                    <button onclick="onChangeLineX(this.dataset.line)" data-line="-5">Left</button>
-                    <button onclick="onChangeLineY(this.dataset.line)" data-line="-5">Up</button>
-                    <button onclick="onChangeLineY(this.dataset.line)" data-line="5">Down</button>
-                    <button onclick="onChangeLineX(this.dataset.line)" data-line="5">Right</button>
+                    <button onclick="onChangeLineX(this.dataset.line)" data-line="-5"
+                        class="btn-round btn-direct">Left</button>
+                    <button onclick="onChangeLineY(this.dataset.line)" data-line="-5"
+                        class="btn-round btn-direct">Up</button>
+                    <button onclick="onChangeLineY(this.dataset.line)" data-line="5"
+                        class="btn-round btn-direct">Down</button>
+                    <button onclick="onChangeLineX(this.dataset.line)" data-line="5"
+                        class="btn-round btn-direct">Right</button>
                 </div>
-                <button onclick="onChangeLine()">Change Line</button>
+                <button onclick="onChangeLine()" class="btn-round btn-line">Change Line</button>
             </div>
         </div>
 
@@ -60,6 +90,7 @@
     </section>
     <script src="js/touch.service.js"></script>
     <script src="js/storage.service.js"></script>
+    <script src="js/shapes.service.js"></script>
     <script src="js/meme.service.js"></script>
     <script src="js/app.controller.js"></script>
 </body>

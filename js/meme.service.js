@@ -35,18 +35,21 @@ var gMeme = {
         align: 'left',
         fill: 'white',
         stroke: 'red',
-        x: 50,
-        y: 50
+        x: 100,
+        y: 50,
+        font: 'impact'
     },
     {
         id: 1,
         txt: 'Yay!',
-        size: 50,
+        size: 75,
         align: 'left',
-        fill: 'white',
+        fill: 'lightblue',
         stroke: 'red',
         x: 100,
-        y: 300
+        y: 475,
+        font: 'impact'
+
     }]
 }
 
@@ -59,13 +62,18 @@ function getImgs() {
 // Meme
 
 function updateMeme(key, val) {
-    console.log ('gCurrLine =',gCurrLine)
     if (key === 'img') gMeme.selectedImgId = val;
     if (key === 'txt') gMeme.lines[gCurrLine].txt = val;
     if (key === 'fontSize') gMeme.lines[gCurrLine].size = gMeme.lines[gCurrLine].size + val;
     if (key === 'lineY') gMeme.lines[gCurrLine].y = gMeme.lines[gCurrLine].y + val;
     if (key === 'lineX') gMeme.lines[gCurrLine].x = gMeme.lines[gCurrLine].x + val;
+    if (key === 'fill') gMeme.lines[gCurrLine].fill =val;
+    if (key === 'stroke') gMeme.lines[gCurrLine].stroke =val;
+    if (key === 'font') gMeme.lines[gCurrLine].font =val;
+    if (key === 'align') gMeme.lines[gCurrLine].align =val;
+    
 }
+
 function changeCurrLine() {
     if (gCurrLine === 0) {
         gCurrLine = 1;

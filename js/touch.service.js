@@ -25,9 +25,9 @@ function addTouchListeners(canvas) {
 }
 
 function onDown(ev) {
-    var shape = findShape(ev);
+    var shape = findIfText(ev);
     if (!shape) {
-        draw(ev);
+        onCanvasClick(ev);
         return;
     }
     const pos = getEvPos(ev);
@@ -37,19 +37,21 @@ function onDown(ev) {
 
 }
 
-function findShape(ev) {
+function findIfText(ev) {
     const { offsetX, offsetY } = ev;
-    var shape;
-    var shapes = getShapes();
-    return shape = shapes.find(shape => {
-        return isCirlceClicked(shape, offsetX, offsetY);
+    var txt;
+    const memes = getMeme();
+    const lines = memes.lines 
+    return txt = lines.find(line => {
+        return isCirlceClicked(line, offsetX, offsetY);
         // Figure other shapes..? 
     })
 }
 
 function onMove(ev) {
-    var shapes = getShapes();
-    shapes.forEach(shape => {
+    var meme = getMeme();
+    var lines = meme.lines;
+    lines.forEach(shape => {
         if (shape.isDragging) {
             const pos = getEvPos(ev)
             const dx = pos.x - gStartPos.x
@@ -68,9 +70,10 @@ function onMove(ev) {
 }
 
 function onUp() {
-    var shapes = getShapes();
+    var meme = getMeme();
+    var lines = meme.lines;
     document.body.style.cursor = 'grab'
-    shapes.forEach(shape => shape.isDragging = false)
+    lines.forEach(line => line.isDragging = false)
 }
 
 function getEvPos(ev) {
@@ -89,9 +92,9 @@ function getEvPos(ev) {
     return pos
 }
 
-function isCirlceClicked(shape, clickedX, ClickedY) {
-    var shapeX = shape.pos.x;
-    var shapeY = shape.pos.y;
-    const distance = Math.sqrt((shapeX - clickedX) ** 2 + (shapeY - ClickedY) ** 2);
-    return distance <= shape.size;
+function isCirlceClicked(line, clickedX, ClickedY) {
+    var lineX = line.x;
+    var lineY = line.y;
+    const distance = Math.sqrt((lineX - clickedX) ** 2 + (lineY - ClickedY) ** 2);
+    return distance <= line.size;
 }
