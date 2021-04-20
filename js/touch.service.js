@@ -25,46 +25,42 @@ function addTouchListeners(canvas) {
 }
 
 function onDown(ev) {
-    var shape = findIfText(ev);
-    if (!shape) {
-        onCanvasClick(ev);
+    var line = findIfLine(ev);
+    console.log('line =', line)
+    if (!line) {
+        // onCanvasClick(ev);
         return;
     }
     const pos = getEvPos(ev);
-    shape.isDragging = true;
+    line.isDragging = true;
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
 
 }
 
-function findIfText(ev) {
+function findIfLine(ev) {
     const { offsetX, offsetY } = ev;
-    var txt;
     const memes = getMeme();
-    const lines = memes.lines 
-    return txt = lines.find(line => {
-        return isCirlceClicked(line, offsetX, offsetY);
-        // Figure other shapes..? 
-    })
+    const lines = memes.lines
+    var line = lines.find(line => isLine(line, offsetX, offsetY))
+    return line;
 }
 
 function onMove(ev) {
     var meme = getMeme();
     var lines = meme.lines;
-    lines.forEach(shape => {
-        if (shape.isDragging) {
+    lines.forEach(line => {
+        if (line.isDragging) {
+            console.log('moving shape =', line)
             const pos = getEvPos(ev)
             const dx = pos.x - gStartPos.x
             const dy = pos.y - gStartPos.y
-            shape.pos.x += dx
-            shape.pos.y += dy
-            shape.pos.x = pos.x
-            shape.pos.y = pos.y
+            line.x += dx
+            line.y += dy
+            line.x = pos.x
+            line = pos.y
             gStartPos = pos
-            if (shape.type === "circle") drawCircle(pos.x, pos.y);
-            if (shape.type === "square") drawRect(pos.x, pos.y);
-            if (shape.type === "spade") drawSpade(pos.x, pos.y);
-            if (shape.type === "line") drawLine(pos.x, pos.y);
+            renderCanvas();
         }
     });
 }
@@ -72,7 +68,7 @@ function onMove(ev) {
 function onUp() {
     var meme = getMeme();
     var lines = meme.lines;
-    document.body.style.cursor = 'grab'
+    document.body.style.cursor = 'pointer'
     lines.forEach(line => line.isDragging = false)
 }
 
@@ -92,9 +88,7 @@ function getEvPos(ev) {
     return pos
 }
 
-function isCirlceClicked(line, clickedX, ClickedY) {
-    var lineX = line.x;
-    var lineY = line.y;
-    const distance = Math.sqrt((lineX - clickedX) ** 2 + (lineY - ClickedY) ** 2);
+function isLine(line, clickedX, ClickedY) {
+    const distance = Math.sqrt((line.x - clickedX) ** 2 + (line.y - ClickedY) ** 2);
     return distance <= line.size;
 }

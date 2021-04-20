@@ -11,6 +11,23 @@
 </head>
 
 <body onload="onInit()">
+
+    <div hidden class="saved-memes-modal">
+        <div class="flex f-row f-space">
+            <h1>Your Saved Memes</h1>
+            <button onclick="onCloseSavedModal()">X</button>
+        </div>
+        <div class="saved-memes-container">
+            <!-- HTML injected here -->
+        </div>
+        <button onclick="onOpenClearConfirm()">Clear all</button>
+        <div hidden class="clear-confirm">
+            Are you sure? This can't be undone.
+            <button onclick="onCloseClearConfirm()">No, I like my memes</button>
+            <button onclick="onClearSavedMemes()"> I am sure</button>
+        </div>
+    </div>
+
     <header class="flex f-row f-justify f-align-center">
         <div class="logo">
             <h1 class="fa fa-meteor">Meme Generator</h1>
@@ -18,10 +35,11 @@
         <nav>
             <ul class="clean-list flex f-row">
                 <li>Gallery</li>
-                <li>Memes</li>
+                <li onclick="onOpenSavedModal()">Memes</li>
             </ul>
         </nav>
     </header>
+
     <section class="meme-editor-container ">
         <div class="container flex f-column f-align-center f-justify">
             <div class="canvas-container">
@@ -45,22 +63,32 @@
                         <button class="img-size btn-round btn-fonts"><input type="color"
                                 oninput="onStrokeChange(this.value)"> Stroke</button>
                     </div>
+                    <div class="stroke-size">
+                        <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="-1"
+                            class="img-size btn-round btn-fonts">-</button>
+                        Stoke
+                        <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="1"
+                            class="img-size btn-round btn-fonts">+</button>
+                    </div>
                     <div class="font-size-selectors">
                         <select onchange="onFontChange(this.value)">
                             <option value="impact">Impact</option>
                             <option value="helvetica">Helvetica</option>
                             <option value="courier">Courier</option>
+                            <option value="papyrus">Papyrus</option>
                         </select>
                         <button onclick="onTextAlign(this.dataset.align)" data-align="left"
-                            class="img-size btn-round btn-fonts"><img src="imgs/icons/align-to-left.png"
-                                alt="Align left"></button>
+                            class="img-size btn-round btn-fonts">
+                            <img src="imgs/icons/align-to-left.png" alt="Align left">
+                        </button>
                         <button onclick="onTextAlign(this.dataset.align)" data-align="center"
-                            class="img-size btn-round btn-fonts"><img src="imgs/icons/center-text-alignment.png"
-                                alt="Align Center"></button>
+                            class="img-size btn-round btn-fonts">
+                            <img src="imgs/icons/center-text-alignment.png" alt="Align Center">
+                        </button>
                         <button onclick="onTextAlign(this.dataset.align)" data-align="right"
-                            class="img-size btn-round btn-fonts"><img src="imgs/icons/align-to-right.png"
-                                alt="Align Right"></button>
-
+                            class="img-size btn-round btn-fonts">
+                            <img src="imgs/icons/align-to-right.png" alt="Align Right">
+                        </button>
                     </div>
                 </div>
                 <div class="move-line-selectors">
@@ -73,7 +101,17 @@
                     <button onclick="onChangeLineX(this.dataset.line)" data-line="5"
                         class="btn-round btn-direct">Right</button>
                 </div>
-                <button onclick="onChangeLine()" class="btn-round btn-line">Change Line</button>
+                <div class="line-selectors">
+                    <button onclick="onRemoveLine()" class="btn-round btn-line">Remove Line</button>
+                    <button onclick="onChangeLine()" class="btn-round btn-line">Change Line</button>
+                    <button onclick="onAddLine()" class="btn-round btn-line">Add Line</button>
+                </div>
+                <div class="actions-selectors">
+                    <button class="btn-round btn-act"><a href="#" onclick="onDownload(this)"
+                            download="My Creation">Download</a></button>
+                    <button onclick="onSave()" class="btn-round btn-act">Save</button>
+                    <button onclick="onShare()" class="btn-round btn-act">Share</button>
+                </div>
             </div>
         </div>
 
@@ -90,7 +128,7 @@
     </section>
     <script src="js/touch.service.js"></script>
     <script src="js/storage.service.js"></script>
-    <script src="js/shapes.service.js"></script>
+    <script src="js/sh.service.js"></script>
     <script src="js/meme.service.js"></script>
     <script src="js/app.controller.js"></script>
 </body>

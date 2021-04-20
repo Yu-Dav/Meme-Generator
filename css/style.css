@@ -47,6 +47,10 @@ h1 {
     justify-content: center;
 }
 
+.f-space {
+    justify-content: space-around;
+}
+
 .f-column {
     flex-direction: column;
 }
@@ -89,8 +93,39 @@ h1 {
 .btn-line {
     background-color: rgb(187, 204, 204); 
 }
+.btn-act {
+    background-color: rgb(176, 185, 185); 
+}
 
 /* Components */
+
+/* Modal */ 
+
+.saved-memes-modal {
+    background-color: azure;
+    width: 80vh;
+    height: 80vh;
+    position: fixed;
+}
+
+.saved-memes-container {
+    border: 1px solid black;
+    height: 70%;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    grid-auto-rows: 250px;
+    gap: 2em;
+    overflow-y: scroll;
+}
+
+.saved-memes-container img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1.75em;
+}
 
 /* Header */
 
@@ -190,6 +225,10 @@ canvas {
     border-radius: 1.75em;
 }
 
+.actions-selectors a {
+    text-decoration: none;
+    color: inherit;
+}
 
 @media (min-width: 950px) {
     .container {
