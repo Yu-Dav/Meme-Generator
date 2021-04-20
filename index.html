@@ -52,16 +52,16 @@
                         <input type="text" id="meme-text" oninput="onTextChange(this.value)">
                     </div>
                     <div class="font-size-selectors">
-                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="2"
-                            class="img-size btn-round btn-fonts"><img src="imgs/icons/increase-font.png"
-                                alt="Increase font"></button>
                         <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2"
                             class="img-size btn-round btn-fonts"><img src="imgs/icons/decrease-font.png"
                                 alt="Decrease Font"></button>
+                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="2"
+                            class="img-size btn-round btn-fonts"><img src="imgs/icons/increase-font.png"
+                                alt="Increase font"></button>
                         <button class="img-size btn-round btn-fonts"><input type="color"
-                                oninput="onFillChange(this.value)">Fill</button>
+                                oninput="onFillChange(this.value)" value="#c026d1">Fill</button>
                         <button class="img-size btn-round btn-fonts"><input type="color"
-                                oninput="onStrokeChange(this.value)"> Stroke</button>
+                                oninput="onStrokeChange(this.value)" value="#ccb25e"> Stroke</button>
                     </div>
                     <div class="stroke-size">
                         <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="-1"
@@ -76,6 +76,7 @@
                             <option value="helvetica">Helvetica</option>
                             <option value="courier">Courier</option>
                             <option value="papyrus">Papyrus</option>
+                            <option value="cursive">Hand-written</option>
                         </select>
                         <button onclick="onTextAlign(this.dataset.align)" data-align="left"
                             class="img-size btn-round btn-fonts">
@@ -123,12 +124,10 @@
     <section class="image-gallery">
 
         <div class="container">
-            <input type="file" class="" name="image" onchange="onImgInput(event)" />
-            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                <input name="img" id="imgData" type="hidden" />
-                <!-- <button class="btn" type="submit">Publish</button> -->
-                <div class="share-container"></div>
-            </form>
+            <div class="upload-img">
+                Add your favorite picture:
+                <input type="file" class="btn-round" name="image" onchange="onImgInput(event)"/>
+            </div>
             <div class="gallery-container">
                 <!-- Images injected here -->
             </div>

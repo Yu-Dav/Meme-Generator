@@ -65,7 +65,7 @@ h1 {
     padding: 0;
 }
 
-.img-size img{
+.img-size img {
     height: 16px;
     width: 16px;
 }
@@ -73,8 +73,8 @@ h1 {
 .btn-round {
     padding: 0.25em 0.5em;
     border-radius: 2em;
-    font-family: quicksand, helvetica,sans-serif;
-    font-size: 1.1rem;
+    font-family: quicksand, helvetica, sans-serif;
+    font-size: 0.95rem;
     outline: none;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -82,30 +82,54 @@ h1 {
 .btn-round:hover {
     box-shadow: 0 0 5px white;
     filter: contrast(140%);
+    transition: .3s;
+
 }
 
+.img-hover {
+    filter: saturate(50%);
+
+}
+
+.img-hover:hover {
+    box-shadow: 0px 0px 9px 2px #000000;
+    transition: .3s ease;
+    filter: brightness(105%);
+    filter: saturate(100%);
+
+}
+
+
+
 .btn-fonts {
-    background-color: rgb(210, 233, 233); 
+    background-color: rgb(210, 233, 233);
 }
+
 .btn-direct {
-    background-color: rgb(179, 213, 213); 
+    background-color: rgb(179, 213, 213);
 }
+
 .btn-line {
-    background-color: rgb(187, 204, 204); 
+    background-color: rgb(187, 204, 204);
 }
+
 .btn-act {
-    background-color: rgb(176, 185, 185); 
+    background-color: rgb(176, 185, 185);
 }
 
 /* Components */
 
-/* Modal */ 
+/* Modal */
 
 .saved-memes-modal {
-    background-color: azure;
+    background-color: rgb(243, 243, 243);
     width: 80vh;
     height: 80vh;
     position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -40vh;
+    margin-left: -40vw;
 }
 
 .saved-memes-container {
@@ -117,6 +141,9 @@ h1 {
     grid-auto-rows: 250px;
     gap: 2em;
     overflow-y: scroll;
+    padding: 2em 2em;
+    margin: auto;
+
 }
 
 .saved-memes-container img {
@@ -134,7 +161,7 @@ header {
 }
 
 header h1 {
-    font-family: berkshire;
+    font-family: berkshire, sans-serif;
     font-size: 2.25em;
     margin-inline-end: 5em;
 }
@@ -148,7 +175,7 @@ header .fa {
 }
 
 .fa-meteor::after {
-    /* TO CHECK */ 
+    /* TO CHECK */
     content: "\f753";
     position: absolute;
     right: 20px;
@@ -162,13 +189,19 @@ nav li {
 
 nav li:hover {
     color: blue;
-    font-family: quicksand-Medium;
+    font-family: quicksand-Medium, serif;
 }
 
 /* Image Editor */
 
 .meme-editor-container {
     display: none;
+}
+
+.meme-editor-container .container {
+    background-color: rgb(189, 190, 190);
+    border: 1px solid rgb(148, 148, 148);
+    padding: 2em 2em;
 }
 
 .canvas-container {
@@ -193,9 +226,28 @@ canvas {
     margin: 0.25em 0em
 }
 
-.editor-controllers {}
+.font-size-selectors select,
+.text input  {
+    padding: 0.25em 0.25em;
+    font-size: 1em;
+}
+
+.font-size-selectors select [value=impact] {
+    font-family: impact; 
+    /* display: none; */
+}
+
+.font-size-selectors select [value=cursive] {
+    font-family: cursive; 
+}
 
 /* Image Gallery */
+
+.upload-img {
+    background-color: rgb(189, 190, 190);
+    border: 1px solid rgb(148, 148, 148);
+    padding: 0.5em 2em;
+}
 
 .image-gallery {
     margin-top: 2em;
@@ -208,13 +260,14 @@ canvas {
     display: grid;
     grid-template-columns: repeat(auto-fit, 150px);
     grid-auto-rows: 150px;
-    gap: 2em;
-    padding: 0em 6em;
+    gap: 1em;
+    padding: 2em 3em;
     overflow-y: scroll;
     /* overflow-x: hidden; */
-    justify-items: center;
-    align-items: center;
-
+    /* justify-items: center; */
+    /* align-items: center; */
+    margin-top: 2em;
+    border: 1px solid rgb(148, 148, 148);
 }
 
 .gallery-container img {
@@ -235,9 +288,26 @@ canvas {
         max-width: 1100px;
         margin: auto;
     }
+
     .meme-editor-container .container {
         flex-direction: row;
     }
 
+    .meme-editor-container .container {
+        padding: 2em 6em;
+    }
+    
+    .gallery-container {
+        /* height: 50vh; */
+        /* width: 100%; */
+        /* grid-template-columns: repeat(auto-fit, 150px); */
+        /* grid-auto-rows: 150px; */
+        gap: 2em;
+        padding: 2em 6em;
+    }
+
+    .upload-img {
+        padding: 0.5em 6em;
+    }
 
 }

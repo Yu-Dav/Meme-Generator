@@ -117,7 +117,7 @@ function getSavedMemes() {
 
 function addLine() {
     const line = {
-        txt: 'your text here',
+        txt: 'Your text here',
         size: 50,
         align: 'center',
         fill: 'white',
@@ -136,6 +136,18 @@ function changeCurrLine() {
     gMeme.selectedLineIdx++;
     if (gMeme.selectedLineIdx > gMeme.lines.length - 1) gMeme.selectedLineIdx = 0;
     gMeme.lines[gMeme.selectedLineIdx].isFocused = true;
+}
+
+function updateCurrLine(idx) {
+    gMeme.lines.forEach(line => line.isFocused = false);
+    gMeme.lines[idx].isFocused = true;
+    gMeme.lines[idx].isDragging = true;
+    gMeme.selectedLineIdx = idx;
+
+    // currLine.isFocused = true;
+    // currLine.isDragging = true;
+
+
 }
 
 function getMeme() {

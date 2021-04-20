@@ -49,6 +49,7 @@ function drawText() {
             // const height = line.size * 1.25;
             const height = line.size;
             const width = gCtx.measureText(line.txt).width
+            gCtx.lineWidth = '2';
             gCtx.strokeStyle = 'white';
             gCtx.strokeRect(line.x - width / 2 - 10, line.y - height, gCtx.measureText(line.txt).width + 20, line.size + 15);
         }
@@ -60,7 +61,7 @@ function renderImgGallery() {
     const imgs = getImgs();
     const strHTMLs = imgs.map(img => {
         return `
-        <img onclick="onSelectImage(this.dataset.imgId)" data-img-id="${img.id}" src="imgs/${img.id}.jpg" alt="Image ${img.id}">
+        <img class="img-hover" onclick="onSelectImage(this.dataset.imgId)" data-img-id="${img.id}" src="imgs/${img.id}.jpg" alt="Image ${img.id}">
         `
     });
     const elGallery = document.querySelector('.gallery-container');
@@ -69,6 +70,7 @@ function renderImgGallery() {
 
 
 function renderPlaceHolder() {
+    console.log('Chanigng placeholder =')
     const meme = getMeme();
     var elInput = document.querySelector('.text input')
     elInput.value = meme.lines[meme.selectedLineIdx].txt;
@@ -92,6 +94,8 @@ function onSelectImage(imgId) {
     document.querySelector('.meme-editor-container').style.display = 'flex';
     updateMeme('img', imgId);
     renderCanvas();
+    renderPlaceHolder();
+
     // only renderText to smear.....
 }
 

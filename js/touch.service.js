@@ -25,19 +25,27 @@ function addTouchListeners(canvas) {
 }
 
 function onDown(ev) {
-    var line = findIfLine(ev);
-    console.log('line =', line)
-    if (!line) {
+    var currLine = findIfLine(ev);
+    console.log('line =', currLine)
+    if (!currLine) {
         // onCanvasClick(ev);
         return;
     }
     // Should this be done here... Or in meme service..? 
-    getMeme().lines.forEach(line => line.isFocused = false);
-    line.isFocused = true;
+    console.log('line =', currLine)
+    var idx = getMeme().lines.findIndex(line => line === currLine)
+    updateCurrLine(idx);
+
+    // getMeme().lines.forEach(line => line.isFocused = false);
+    // console.log ('idx =',idx)
+    // currLine.isFocused = true;
+    // currLine.isDragging = true;
+
+
     const pos = getEvPos(ev);
-    line.isDragging = true;
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
+    renderPlaceHolder();
 }
 
 function findIfLine(ev) {
