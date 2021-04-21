@@ -17,16 +17,25 @@ function onInit() {
 function renderCanvas() {
     const meme = getMeme();
     const img = new Image();
-    img.src = getImgs()[meme.selectedImgId - 1].url;
+    console.log ('getImgs()[meme.selectedImgId - 1] =',getImgs()[meme.selectedImgId - 1])
+    console.log ('meme.selectedImgId - 1 =',meme.selectedImgId - 1)
+    // img.src = getImgs()[meme.selectedImgId - 1].url;
+    const memeImg = getImgByID();
+    img.src = memeImg.url;
     img.onload = () => {
         // gCanvas.width = img.naturalWidth;
         // gCanvas.height = img.naturalHeight;
 
         // FOCUS HERE rgs image scaling. 
 
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        // console.log('gCanvas.height =', gCanvas.height)
+        // console.log('gCanvas.width =', gCanvas.width)
+        // console.log('   img.naturalHeight =', img.naturalHeight)
+        // console.log('   img.naturalWidth =', img.naturalWidth)
+
+        // gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         // gCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-        // gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height * img.width / img.height);
+        gCtx.drawImage(img, 0, 0, gCanvas.width * (img.width / img.height), gCanvas.height * (img.width / img.height));
         drawText();
     }
     resizeCanvas();
@@ -123,6 +132,7 @@ function renderSavedMemes() {
 }
 
 function onSelectImage(imgId) {
+    console.log ('imgId =',imgId)
     document.querySelector('.meme-editor-container').style.display = 'flex';
     updateMeme('img', imgId);
     renderCanvas();

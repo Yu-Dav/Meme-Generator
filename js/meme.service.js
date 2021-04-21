@@ -68,7 +68,13 @@ const key = 'savedMemes';
 
 function getImgs() {
     if (gFilterImgby === 'all') return gImgs;
-    return gImgs.filter(img => img.keywords.includes(gFilterImgby));
+    var filtered = gImgs.filter(img => img.keywords.includes(gFilterImgby));
+    console.log('filtered =', filtered)
+    return filtered
+}
+
+function getImgByID() {
+    return gImgs.find(img => img.id + '' === gMeme.selectedImgId);
 }
 
 function getKeywords() {
