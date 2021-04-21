@@ -117,6 +117,7 @@ function onSelectImage(imgId) {
 }
 
 function onInputChange(val) {
+    // need to fix- when changing from direction x to y, old value is kepts which makes the line jump
     if (!gLastChangedDirect) return;
     if (gLastChangedDirect === 'right' || gLastChangedDirect === 'left') {
         updateMeme('x', val);
@@ -240,13 +241,10 @@ function renderImg(img) {
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
-    // Note: changing the canvas dimension this way clears the canvas
     gCanvas.width = elContainer.offsetWidth
     gCanvas.height = elContainer.offsetHeight
 }
 
 function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    // You may clear part of the canvas
-    // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height/4)
 }

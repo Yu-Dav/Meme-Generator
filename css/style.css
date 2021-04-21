@@ -24,7 +24,7 @@
 
 body {
     background: #E6DECD;
-    background: linear-gradient(to bottom, #E6DECD 0%, #8B998F 50%, #ADC5C2 100%);
+    background: linear-gradient(to bottom, #ecede1 0%, #c0cea1 50%, #405553 100%);
     /* background-color: #cccccc; */
     margin: 0;
     font-family: quicksand, helvetica, sans-serif;
@@ -112,19 +112,19 @@ input[type=color] {
 }
 
 .btn-fonts {
-    background-color: rgb(210, 233, 233);
+    background-color: rgb(231, 237, 237);
 }
 
 .btn-direct {
-    background-color: rgb(179, 213, 213);
+    background-color: rgb(202, 211, 211);
 }
 
 .btn-line {
-    background-color: rgb(187, 204, 204);
+    background-color: rgb(199, 204, 204);
 }
 
 .btn-act {
-    background-color: rgb(176, 185, 185);
+    background-color: rgb(193, 213, 226);
 }
 
 /* Components */
@@ -196,6 +196,12 @@ header h1 {
 
 .logo {
     position: relative;
+    color: rgb(68, 72, 131);
+    letter-spacing: 1.5px;
+}
+
+.logo:hover {
+    text-shadow: -5px 0px 2px #b6d3e9;
 }
 
 
@@ -212,14 +218,16 @@ header h1 {
 }
 
 nav li {
-    padding-inline-end: 2em;
+    padding-inline-end: 4em;
     cursor: default;
     font-size: 1.75em;
+    border-bottom: 4px transparent;
 }
 
 nav li:hover {
-    color: blue;
-    font-family: quicksand-Medium, serif;
+    color: rgb(78, 134, 113);
+    cursor: pointer;
+    border-bottom: 4px solid white;
 }
 
 /* Image Editor */
@@ -260,6 +268,10 @@ canvas {
 .text input {
     padding: 0.25em 0.25em;
     font-size: 1em;
+}
+
+.text [type=text] {
+    width: 12.5em;
 }
 
 .font-size-selectors select [value=impact] {
