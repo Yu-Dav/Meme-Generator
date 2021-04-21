@@ -34,8 +34,8 @@ var gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [{
-        txt: 'Whoop Whoop!',
-        size: 50,
+        txt: 'Try and break the internet',
+        size: 45,
         align: 'center',
         fill: 'white',
         stroke: 'red',
@@ -46,15 +46,15 @@ var gMeme = {
         isFocused: true
     },
     {
-        txt: 'Yay!',
-        size: 75,
+        txt: 'I dare you',
+        size: 65,
         align: 'center',
         fill: 'lightblue',
         stroke: 'red',
         x: 250,
         y: 490,
         font: 'impact',
-        strokeWidth: 3,
+        strokeWidth: 2,
         isFocused: false
     }]
 }

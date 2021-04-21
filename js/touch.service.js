@@ -47,10 +47,12 @@ function findIfLine(ev) {
 }
 
 function onMove(ev) {
+    console.log ('moving')
     var meme = getMeme();
     var lines = meme.lines;
     lines.forEach(line => {
         if (line.isDragging) {
+            console.log ('dragging =')
             const pos = getEvPos(ev)
             const dx = pos.x - gStartPos.x
             const dy = pos.y - gStartPos.y

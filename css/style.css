@@ -67,6 +67,10 @@ input[type=color] {
     flex-direction: row;
 }
 
+.f-wrap {
+    flex-wrap: wrap;
+}
+
 .clean-list {
     list-style-type: none;
     margin: 0;
@@ -74,15 +78,15 @@ input[type=color] {
 }
 
 .img-size img {
-    height: 20px;
-    width: 20px;
+    height: 24px;
+    width: 24px;
 }
 
 .btn-round {
-    padding: 0.1em 0.5em;
+    padding: 0.3em 0.5em;
     border-radius: 1em;
     font-family: quicksand, helvetica, sans-serif;
-    font-size: 0.95rem;
+    font-size: 1.7rem;
     outline: none;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -106,8 +110,6 @@ input[type=color] {
     filter: saturate(100%);
 
 }
-
-
 
 .btn-fonts {
     background-color: rgb(210, 233, 233);
@@ -183,6 +185,7 @@ input[type=color] {
 
 header {
     padding: 2em 0;
+    flex-direction: column;
 }
 
 header h1 {
@@ -191,19 +194,21 @@ header h1 {
     margin-inline-end: 5em;
 }
 
-header .fa {
-    font-family: brands;
-}
-
 .logo {
     position: relative;
 }
 
+
+.fa {
+    font-family: brands;
+}
+
 .fa-meteor::after {
     /* TO CHECK */
+    /* content: "haha"; */
     content: "\f753";
     position: absolute;
-    right: 20px;
+    left: 7.5em;
 }
 
 nav li {
@@ -329,6 +334,11 @@ canvas {
 }
 
 @media (min-width: 950px) {
+
+    header {
+        flex-direction: row;
+    }
+
     .container {
         max-width: 1100px;
         margin: auto;
@@ -344,6 +354,8 @@ canvas {
 
     .btn-round {
         padding: 0.25em 0.75em;
+        font-size: 0.95rem;
+
     }
 
     .gallery-container {
@@ -359,4 +371,8 @@ canvas {
         padding: 0.5em 6em;
     }
 
+    .img-size img {
+        height: 20px;
+        width: 20px;
+    }
 }
