@@ -11,15 +11,19 @@ function onInit() {
     addListeners(gCanvas);
     // renderCanvas();
     renderImgGallery();
+    renderKeywords()
 }
 
 function renderCanvas() {
     const meme = getMeme();
-    var img = new Image();
+    const img = new Image();
     img.src = getImgs()[meme.selectedImgId - 1].url;
     img.onload = () => {
         // gCanvas.width = img.naturalWidth;
         // gCanvas.height = img.naturalHeight;
+
+        // FOCUS HERE rgs image scaling. 
+
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
         // gCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
         // gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height * img.width / img.height);
@@ -68,9 +72,37 @@ function renderImgGallery() {
     elGallery.innerHTML = strHTMLs.join('');
 }
 
+function renderKeywords() {
+    const keywordsObj = getKeywords();
+    const keywords = Object.entries(keywordsObj);
+    const strHTMLs = keywords.map(key => {
+        return `
+        <li onclick="onFilterImgByKeyword(this.innerText)">${key[0]}</li>
+        `
+    });
+    const elList = document.querySelector('.keywords');
+    elList.innerHTML = strHTMLs.join('');
+
+    // Object.keys(keywords).map(function(key, val) {
+    //     console.log(`The key is ${keywords[key]}`);
+    //     console.log(`The key is ${keywords[val]}`);
+    //   });
+    // for (const [key, val] of Object.entries(keywords)) {
+    //     'hello'
+    //     console.log(`The key is ${key}`)
+    //     console.log(`The val is ${val}`)
+    // }
+
+}
+
+function onFilterImgByKeyword(keyword) {
+    // keywords = keywords.toLowerCase();
+    console.log('keyword =', keyword);
+    setFilter(keyword);
+    renderImgGallery();
+}
 
 function renderPlaceHolder() {
-    console.log('Chanigng placeholder =')
     const meme = getMeme();
     var elInput = document.querySelector('.text input')
     elInput.value = meme.lines[meme.selectedLineIdx].txt;
@@ -95,8 +127,18 @@ function onSelectImage(imgId) {
     updateMeme('img', imgId);
     renderCanvas();
     renderPlaceHolder();
-
     // only renderText to smear.....
+}
+
+function onInputChange(val) {
+    if (!gLastChangedDirect) return;
+    if (gLastChangedDirect === 'right' || gLastChangedDirect === 'left') {
+        updateMeme('x', val);
+        renderCanvas();
+        return;
+    }
+    updateMeme('y', val);
+    renderCanvas();
 }
 
 function onSavedMemeClick(id) {
@@ -109,16 +151,26 @@ function onSavedMemeClick(id) {
 // }
 
 function onOpenSavedModal() {
-    console.log('opening modal =')
-    document.querySelector('.saved-memes-modal').hidden = false;
-    document.querySelector('.saved-memes-modal').style.zIndex = '2'
-    // Screen zindex 1
+    const elModal = document.querySelector('.saved-memes-modal');
+    const elScreen = document.querySelector('.screen');
+    elModal.hidden = false;
+    elModal.style.opacity = '1';
+    elModal.style.zIndex = '1'
+    elScreen.hidden = false;
+    elScreen.style.zIndex = '1'
     renderSavedMemes();
 }
 
 function onCloseSavedModal() {
-    console.log('closing modal =')
-    document.querySelector('.saved-memes-modal').hidden = true;
+    const elModal = document.querySelector('.saved-memes-modal');
+    const elScreen = document.querySelector('.screen');
+    elModal.hidden = true;
+    elScreen.hidden = true;
+
+    // document.querySelector('.saved-memes-modal').hidden = true;
+
+    // document.querySelector('.saved-memes-modal').style.opacity = '0';
+
 }
 
 function onOpenClearConfirm() {

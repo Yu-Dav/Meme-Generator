@@ -23,7 +23,9 @@
 }
 
 body {
-    background-color: #cccccc;
+    background: #E6DECD;
+    background: linear-gradient(to bottom, #E6DECD 0%, #8B998F 50%, #ADC5C2 100%);
+    /* background-color: #cccccc; */
     margin: 0;
     font-family: quicksand, helvetica, sans-serif;
 }
@@ -71,15 +73,15 @@ h1 {
 }
 
 .btn-round {
-    padding: 0.25em 0.5em;
-    border-radius: 2em;
+    padding: 0.1em 0.5em;
+    border-radius: 1em;
     font-family: quicksand, helvetica, sans-serif;
     font-size: 0.95rem;
     outline: none;
     font-family: 'Courier New', Courier, monospace;
 }
 
-.btn-round:hover {
+.btn-round:hover:not([type=file]) {
     box-shadow: 0 0 5px white;
     filter: contrast(140%);
     transition: .3s;
@@ -122,24 +124,30 @@ h1 {
 /* Modal */
 
 .saved-memes-modal {
-    background-color: rgb(243, 243, 243);
+    background-color: #f4f3dfd9;
+    border: 4px double #B7AEB4;
     width: 80vh;
-    height: 80vh;
+    border-radius: 1em;
+    height: 70vh;
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -40vh;
+    margin-top: -35vh;
     margin-left: -40vw;
+    opacity: 0;
+    /* Why aint transition working..? */
+    transition: opacity .5s, visibility .5s;
 }
+
 
 .saved-memes-container {
     border: 1px solid black;
     height: 70%;
-    width: 80%;
+    width: 70%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 250px);
-    grid-auto-rows: 250px;
-    gap: 2em;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-auto-rows: 200px;
+    gap: 1em;
     overflow-y: scroll;
     padding: 2em 2em;
     margin: auto;
@@ -152,6 +160,13 @@ h1 {
     height: 100%;
     object-fit: cover;
     border-radius: 1.75em;
+}
+
+.screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0 0 0 / 65%);
 }
 
 /* Header */
@@ -227,18 +242,18 @@ canvas {
 }
 
 .font-size-selectors select,
-.text input  {
+.text input {
     padding: 0.25em 0.25em;
     font-size: 1em;
 }
 
 .font-size-selectors select [value=impact] {
-    font-family: impact; 
+    font-family: impact;
     /* display: none; */
 }
 
 .font-size-selectors select [value=cursive] {
-    font-family: cursive; 
+    font-family: cursive;
 }
 
 /* Image Gallery */
@@ -250,16 +265,16 @@ canvas {
 }
 
 .image-gallery {
-    margin-top: 2em;
+    margin: 2em 0em;
 }
 
 .gallery-container {
     background-color: rgb(189, 190, 190);
-    height: 50vh;
+    height: 80vh;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, 150px);
-    grid-auto-rows: 150px;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-auto-rows: 200px;
     gap: 1em;
     padding: 2em 3em;
     overflow-y: scroll;
@@ -276,6 +291,16 @@ canvas {
     height: 100%;
     object-fit: cover;
     border-radius: 1.75em;
+}
+
+.keywords li {
+    padding-inline-end: 0.5em;
+    font-size: 1.5em;
+}
+
+.keywords li:hover {
+    font-weight: bolder;
+    cursor:pointer;
 }
 
 .actions-selectors a {
@@ -296,7 +321,11 @@ canvas {
     .meme-editor-container .container {
         padding: 2em 6em;
     }
-    
+
+    .btn-round {
+        padding: 0.25em 0.75em;
+    }
+
     .gallery-container {
         /* height: 50vh; */
         /* width: 100%; */

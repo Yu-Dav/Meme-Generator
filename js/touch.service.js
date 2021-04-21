@@ -26,22 +26,12 @@ function addTouchListeners(canvas) {
 
 function onDown(ev) {
     var currLine = findIfLine(ev);
-    console.log('line =', currLine)
     if (!currLine) {
         // onCanvasClick(ev);
         return;
     }
-    // Should this be done here... Or in meme service..? 
-    console.log('line =', currLine)
     var idx = getMeme().lines.findIndex(line => line === currLine)
     updateCurrLine(idx);
-
-    // getMeme().lines.forEach(line => line.isFocused = false);
-    // console.log ('idx =',idx)
-    // currLine.isFocused = true;
-    // currLine.isDragging = true;
-
-
     const pos = getEvPos(ev);
     gStartPos = pos;
     document.body.style.cursor = 'grabbing';
@@ -79,7 +69,7 @@ function onMove(ev) {
 function onUp() {
     var meme = getMeme();
     var lines = meme.lines;
-    document.body.style.cursor = 'pointer'
+    document.body.style.cursor = 'defualt'
     lines.forEach(line => line.isDragging = false)
 }
 

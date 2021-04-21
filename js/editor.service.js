@@ -59,17 +59,6 @@ function onChangeLineX(dif) {
     renderCanvas();
 }
 
-function onInputChange(val) {
-    if (!gLastChangedDirect) return;
-    if (gLastChangedDirect === 'right' || gLastChangedDirect === 'left') {
-        updateMeme('x', val);
-        renderCanvas();
-        return;
-    }
-    updateMeme('y', val);
-    renderCanvas();
-
-}
 
 function onChangeLine() {
     changeCurrLine();

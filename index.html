@@ -12,6 +12,10 @@
 
 <body onload="onInit()">
 
+    <div class="screen" hidden>
+
+    </div>
+
     <div hidden class="saved-memes-modal">
         <div class="flex f-row f-space">
             <h1>Your Saved Memes</h1>
@@ -78,7 +82,9 @@
                             <option value="papyrus">Papyrus</option>
                             <option value="cursive">Hand-written</option>
                         </select>
-                        <button onclick="onTextAlign(this.dataset.align)" data-align="left"
+
+
+                        <button onclick="onTextAlign(this.dataset.align)" data-align="right"
                             class="img-size btn-round btn-fonts">
                             <img src="imgs/icons/align-to-left.png" alt="Align left">
                         </button>
@@ -86,9 +92,9 @@
                             class="img-size btn-round btn-fonts">
                             <img src="imgs/icons/center-text-alignment.png" alt="Align Center">
                         </button>
-                        <button onclick="onTextAlign(this.dataset.align)" data-align="right"
+                        <button onclick="onTextAlign(this.dataset.align)" data-align="left"
                             class="img-size btn-round btn-fonts">
-                            <img src="imgs/icons/align-to-right.png" alt="Align Right">
+                            <img src="imgs/icons/align-to-right.png" alt="Align right">
                         </button>
                     </div>
                 </div>
@@ -126,10 +132,19 @@
         <div class="container">
             <div class="upload-img">
                 Add your favorite picture:
-                <input type="file" class="btn-round" name="image" onchange="onImgInput(event)"/>
+                <input type="file" class="btn-round" name="image" onchange="onImgInput(event)" />
             </div>
+            <div class="filter-by-keyword">
+                Filter by keywords:
+                <!-- <div class="keywords-container"> -->
+                    <ul class="keywords clean-list flex f-row">
+                        <!-- HTML keywords list injected here -->
+                    </ul>
+                <!-- </div> -->
+            </div>
+
             <div class="gallery-container">
-                <!-- Images injected here -->
+                <!-- HTML images injected here -->
             </div>
         </div>
     </section>
