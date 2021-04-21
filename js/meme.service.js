@@ -1,6 +1,6 @@
 'use strict';
 
-var gKeywords = { 'all': 4, 'tv': 6, 'politics': 1, 'funny': 8, 'serious': 4, 'pets': 3, 'baby': 2, 'cute': 5 }
+var gKeywords = { 'all': 20, 'tv': 22, 'politics': 17, 'funny': 24, 'serious': 20, 'pets': 28, 'baby': 26, 'cute': 26 }
 
 var gImgs = [
     { id: 1, url: 'imgs/1.jpg', keywords: ['tv'] },
@@ -62,14 +62,13 @@ var gMeme = {
 var gFilterImgby = 'all'
 
 var gSaveMemes = [];
-const key = 'savedMemes';
+const KEY = 'savedMemes';
 
 // Images
 
 function getImgs() {
     if (gFilterImgby === 'all') return gImgs;
     var filtered = gImgs.filter(img => img.keywords.includes(gFilterImgby));
-    console.log('filtered =', filtered)
     return filtered
 }
 
@@ -83,6 +82,13 @@ function getKeywords() {
 
 function setFilter(keyword) {
     gFilterImgby = keyword;
+}
+
+function updateKeywordRating(keyword) {
+    if (keyword === 'all') return;
+    if (gKeywords[keyword] > 30) return;
+    gKeywords[keyword] = gKeywords[keyword] + 1;
+    renderKeywords();
 }
 
 // Meme
@@ -108,16 +114,16 @@ function removeLine() {
 }
 
 function saveMeme(url) {
-    var memes = loadFromStorage(key);
+    var memes = loadFromStorage(KEY);
     var meme = createMemeForStorage(url);
     if (!memes || !memes.length) {
         var gSaveMemes = [];
         gSaveMemes.push(meme);
-        saveToStorage(key, gSaveMemes);
+        saveToStorage(KEY, gSaveMemes);
         return;
     }
     memes.push(meme);
-    saveToStorage(key, memes);
+    saveToStorage(KEY, memes);
 }
 
 function createMemeForStorage(url) {
@@ -129,7 +135,7 @@ function createMemeForStorage(url) {
 }
 
 function getSavedMemes() {
-    return loadFromStorage(key);
+    return loadFromStorage(KEY);
 }
 
 function addLine() {
@@ -174,4 +180,13 @@ function addNewImgToData(url) {
     }
     gMeme.selectedImgId = gImgs.length + 1;
     gImgs.push(newImg);
+}
+
+function removeMemeFromStorage(id) {
+    var memes = loadFromStorage(KEY);
+    var idxToRemove = memes.findIndex(meme => meme.id === id);
+    console.log('idxToRemove =', idxToRemove)
+    memes.splice(idxToRemove, 1);
+    saveToStorage(KEY, memes);
+    renderSavedMemes();
 }

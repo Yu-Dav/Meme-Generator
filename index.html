@@ -24,6 +24,11 @@
         <div class="saved-memes-container">
             <!-- HTML injected here -->
         </div>
+        <div class="save-meme-options" hidden>
+            <button onclick="">Delete</button>
+            <button onclick="">Download</button>
+            <button onclick="">Share</button>
+        </div>
         <button onclick="onOpenClearConfirm()">Clear all</button>
         <div hidden class="clear-confirm">
             Are you sure? This can't be undone.
@@ -57,15 +62,21 @@
                     </div>
                     <div class="font-size-selectors">
                         <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2"
-                            class="img-size btn-round btn-fonts"><img src="imgs/icons/decrease-font.png"
-                                alt="Decrease Font"></button>
+                            class="img-size btn-round btn-fonts">
+                            <img src="imgs/icons/decrease-font.png" alt="Decrease Font">
+                        </button>
                         <button onclick="onChangeFontSize(this.dataset.size)" data-size="2"
-                            class="img-size btn-round btn-fonts"><img src="imgs/icons/increase-font.png"
-                                alt="Increase font"></button>
-                        <button class="img-size btn-round btn-fonts"><input type="color"
-                                oninput="onFillChange(this.value)" value="#c026d1">Fill</button>
-                        <button class="img-size btn-round btn-fonts"><input type="color"
-                                oninput="onStrokeChange(this.value)" value="#ccb25e"> Stroke</button>
+                            class="img-size btn-round btn-fonts">
+                            <img src="imgs/icons/increase-font.png" alt="Increase font">
+                        </button>
+                        <button class="img-size btn-round btn-fonts">
+                            <label for="fill">Fill</label>
+                            <input type="color" oninput="onFillChange(this.value)" value="#c026d1" id="fill">
+                        </button>
+                        <button class="img-size btn-round btn-fonts">
+                            <label for="stroke">Stroke</label>
+                            <input type="color" oninput="onStrokeChange(this.value)" value="#ccb25e" id="stroke"> 
+                        </button>
                     </div>
                     <div class="stroke-size">
                         <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="-1"
@@ -111,7 +122,8 @@
                 </div>
                 <div class="line-selectors">
                     <button onclick="onRemoveLine()" class="btn-round btn-line">Remove Line</button>
-                    <button onclick="onChangeLine()" class="btn-round btn-line">Change Line</button>
+                    <button onclick="onChangeLine()" class="btn-round btn-line img-size"><img
+                            src="imgs/icons/line-up-down.png" alt=""></button>
                     <button onclick="onAddLine()" class="btn-round btn-line">Add Line</button>
                 </div>
                 <div class="actions-selectors">
@@ -133,14 +145,14 @@
             <div class="upload-img">
                 Add your favorite picture:
                 <input type="file" class="btn-round" name="image" onchange="onImgInput(event)" />
-            </div>
-            <div class="filter-by-keyword">
-                Filter by keywords:
-                <!-- <div class="keywords-container"> -->
-                    <ul class="keywords clean-list flex f-row">
+                <div class="filter-by-keyword">
+                    Filter by keywords:
+                    <!-- <div class="keywords-container"> -->
+                    <ul class="keywords clean-list flex f-row f-align-center">
                         <!-- HTML keywords list injected here -->
                     </ul>
-                <!-- </div> -->
+                    <!-- </div> -->
+                </div>
             </div>
 
             <div class="gallery-container">

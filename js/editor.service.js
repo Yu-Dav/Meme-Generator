@@ -59,7 +59,6 @@ function onChangeLineX(dif) {
     renderCanvas();
 }
 
-
 function onChangeLine() {
     changeCurrLine();
     renderPlaceHolder();

@@ -6,7 +6,6 @@ var gImg;
 
 function onInit() {
     gCanvas = document.querySelector('canvas');
-    console.log('gCanvas =', gCanvas)
     gCtx = gCanvas.getContext('2d');
     addListeners(gCanvas);
     // renderCanvas();
@@ -15,41 +14,21 @@ function onInit() {
 }
 
 function renderCanvas() {
-    const meme = getMeme();
     const img = new Image();
-    console.log ('getImgs()[meme.selectedImgId - 1] =',getImgs()[meme.selectedImgId - 1])
-    console.log ('meme.selectedImgId - 1 =',meme.selectedImgId - 1)
-    // img.src = getImgs()[meme.selectedImgId - 1].url;
     const memeImg = getImgByID();
     img.src = memeImg.url;
     img.onload = () => {
-        // gCanvas.width = img.naturalWidth;
-        // gCanvas.height = img.naturalHeight;
-
-        // FOCUS HERE rgs image scaling. 
-
-        // console.log('gCanvas.height =', gCanvas.height)
-        // console.log('gCanvas.width =', gCanvas.width)
-        // console.log('   img.naturalHeight =', img.naturalHeight)
-        // console.log('   img.naturalWidth =', img.naturalWidth)
-
-        // gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        // gCtx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
-        gCtx.drawImage(img, 0, 0, gCanvas.width * (img.width / img.height), gCanvas.height * (img.width / img.height));
-        drawText();
+        const widthScale = img.naturalWidth / gCanvas.width;
+        const heightScale = img.naturalHeight / gCanvas.height;
+        gCtx.drawImage(img, 0, 0, img.naturalWidth / widthScale, img.naturalHeight / heightScale);
+        renderText();
     }
     resizeCanvas();
 }
 
-function drawText() {
+function renderText() {
     const lines = getMeme().lines;
-    // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     lines.forEach(line => {
-        // switch back to 1 canvas if this won't actually help.
-        // var vrtCanvas = document.createElement('canvas');
-        // vrtCanvas.width = 500;
-        // vrtCanvas.height = 500;
-        // var vrtCtx = vrtCanvas.getContext('2d');
         gCtx.lineWidth = line.strokeWidth
         gCtx.font = `${line.size}px ${line.font}`;
         gCtx.textAlign = line.align;
@@ -58,15 +37,12 @@ function drawText() {
         gCtx.fillText(line.txt, line.x, line.y);
         gCtx.strokeText(line.txt, line.x, line.y);
         if (line.isFocused) {
-            // const height = line.size * 1.5;
-            // const height = line.size * 1.25;
             const height = line.size;
             const width = gCtx.measureText(line.txt).width
             gCtx.lineWidth = '2';
             gCtx.strokeStyle = 'white';
             gCtx.strokeRect(line.x - width / 2 - 10, line.y - height, gCtx.measureText(line.txt).width + 20, line.size + 15);
         }
-        // gCtx.drawImage(vrtCanvas, 0, 0, gCanvas.width, gCanvas.height);
     });
 }
 
@@ -84,14 +60,14 @@ function renderImgGallery() {
 function renderKeywords() {
     const keywordsObj = getKeywords();
     const keywords = Object.entries(keywordsObj);
+    /// need to caps the words.
     const strHTMLs = keywords.map(key => {
         return `
-        <li onclick="onFilterImgByKeyword(this.innerText)">${key[0]}</li>
+        <li style="font-size: ${key[1]}px;" onclick="onFilterImgByKeyword(this.innerText)">${key[0]}</li>
         `
     });
     const elList = document.querySelector('.keywords');
     elList.innerHTML = strHTMLs.join('');
-
     // Object.keys(keywords).map(function(key, val) {
     //     console.log(`The key is ${keywords[key]}`);
     //     console.log(`The key is ${keywords[val]}`);
@@ -101,14 +77,6 @@ function renderKeywords() {
     //     console.log(`The key is ${key}`)
     //     console.log(`The val is ${val}`)
     // }
-
-}
-
-function onFilterImgByKeyword(keyword) {
-    // keywords = keywords.toLowerCase();
-    console.log('keyword =', keyword);
-    setFilter(keyword);
-    renderImgGallery();
 }
 
 function renderPlaceHolder() {
@@ -125,14 +93,22 @@ function renderSavedMemes() {
     }
     var strHTMLs = memes.map(meme => {
         return `
-        <img onclick="onSavedMemeClick('${meme.id}')" src="${meme.url}" alt="Saved meme">
+        <img data-img-id="${meme.id}" onclick="onSavedMemeClick('${meme.id}')" src="${meme.url}" alt="Saved meme">
         `
     });
     document.querySelector('.saved-memes-container').innerHTML = strHTMLs.join('');
 }
 
+function onFilterImgByKeyword(keyword) {
+    // keywords = keywords.toLowerCase();
+    setFilter(keyword);
+    updateKeywordRating(keyword);
+    renderImgGallery();
+}
+
 function onSelectImage(imgId) {
-    console.log ('imgId =',imgId)
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     document.querySelector('.meme-editor-container').style.display = 'flex';
     updateMeme('img', imgId);
     renderCanvas();
@@ -152,9 +128,15 @@ function onInputChange(val) {
 }
 
 function onSavedMemeClick(id) {
-    console.log('var =', id);
+    // console.log('var =', id);
+    const elImg = document.querySelector(`[data-img-id='${id}']`)
+    elImg.classList.toggle('meme-clicked');
+    const elControllers = document.querySelector('.save-meme-options');
+    elControllers.hidden = false;
+    // console.log('elImg =', elImg)
+    // func working just needs to be assigned to the right btn
+    // removeMemeFromStorage(id); 
 }
-
 
 // function onCanvasClick() {
 //     console.log ('canvas clicked =')
@@ -176,11 +158,6 @@ function onCloseSavedModal() {
     const elScreen = document.querySelector('.screen');
     elModal.hidden = true;
     elScreen.hidden = true;
-
-    // document.querySelector('.saved-memes-modal').hidden = true;
-
-    // document.querySelector('.saved-memes-modal').style.opacity = '0';
-
 }
 
 function onOpenClearConfirm() {
@@ -192,6 +169,7 @@ function onCloseClearConfirm() {
 }
 
 function onClearSavedMemes() {
+    // move to service
     localStorage.clear();
     onCloseSavedModal();
 }
@@ -199,10 +177,16 @@ function onClearSavedMemes() {
 // ACTIONS
 
 function onDownload(elLink) {
+    // render image again without white rect.
+    setTimeout(download(elLink), 5000)
+}
+
+function download(elLink) {
     const data = gCanvas.toDataURL();
     elLink.href = data;
     elLink.download = 'My Creation';
 }
+
 
 function onSave() {
     const data = gCanvas.toDataURL();
@@ -230,10 +214,10 @@ function onImgInput(ev) {
 
 function loadImageFromInput(ev, onImageReady) {
     // document.querySelector('.share-container').innerHTML = ''
-    var reader = new FileReader()
+    const reader = new FileReader()
     reader.onload = function (event) {
-        var url = event.target.result
-        var img = new Image()
+        const url = event.target.result
+        const img = new Image()
         img.onload = onImageReady.bind(null, img)
         img.src = url
         gImg = img
@@ -242,16 +226,12 @@ function loadImageFromInput(ev, onImageReady) {
     reader.readAsDataURL(ev.target.files[0])
 }
 
-
-
-
 function renderImg(img) {
     document.querySelector('.meme-editor-container').style.display = 'flex';
     // renderCanvas();
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-    drawText();
+    renderText();
 }
-
 
 // function onShare() {
 //     console.log('var =')
