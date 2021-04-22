@@ -15,7 +15,7 @@
     <div class="screen" hidden>
 
     </div>
-
+    <!-- change to modal - only work with 1 modal ready for all rendering  -->
     <div hidden class="saved-memes-modal">
         <div class="flex f-row f-space">
             <h1>Your Saved Memes</h1>
@@ -39,11 +39,11 @@
 
     <header class="flex f-justify f-align-center">
         <div class="logo">
-            <h1 class="fa fa-meteor">Meme Generator</h1>
+            <h1 class="fas fa-meteor">Meme Generator</h1>
         </div>
         <nav>
             <ul class="clean-list flex f-row">
-                <li>Gallery</li>
+                <li onclick="closeEditor()">Gallery</li>
                 <li onclick="onOpenSavedModal()">Memes</li>
             </ul>
         </nav>
@@ -54,85 +54,88 @@
             <div class="canvas-container">
                 <canvas id="my-canvas" height="500" width="500"></canvas>
             </div>
-            <div class="editor-controllers flex f-column f-align-center ">
-                <div class="text-selectors flex f-column f-align-center">
-                    <div class="text">
-                        <!-- <label for="meme-text">Text:</label> -->
-                        <input type="text" id="meme-text" oninput="onTextChange(this.value)">
-                    </div>
-                    <div class="font-size-selectors">
-                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2"
-                            class="img-size btn-round btn-fonts">
-                            <img src="imgs/icons/decrease-font.png" alt="Decrease Font">
-                        </button>
-                        <button onclick="onChangeFontSize(this.dataset.size)" data-size="2"
-                            class="img-size btn-round btn-fonts">
-                            <img src="imgs/icons/increase-font.png" alt="Increase font">
-                        </button>
-                        <button class="img-size btn-round btn-fonts">
-                            <label for="fill">Fill</label>
-                            <input type="color" oninput="onFillChange(this.value)" value="#c026d1" id="fill">
-                        </button>
-                        <button class="img-size btn-round btn-fonts">
-                            <label for="stroke">Stroke</label>
-                            <input type="color" oninput="onStrokeChange(this.value)" value="#ccb25e" id="stroke"> 
-                        </button>
-                    </div>
-                    <div class="stroke-size">
-                        <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="-1"
-                            class="img-size btn-round btn-fonts">-</button>
-                        Stoke
-                        <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="1"
-                            class="img-size btn-round btn-fonts">+</button>
-                    </div>
-                    <div class="font-size-selectors">
-                        <select onchange="onFontChange(this.value)">
-                            <option value="impact">Impact</option>
-                            <option value="helvetica">Helvetica</option>
-                            <option value="courier">Courier</option>
-                            <option value="papyrus">Papyrus</option>
-                            <option value="cursive">Hand-written</option>
-                        </select>
+            <div class="grid-editor editor-controllers ">
+                <!-- <div class="text-selectors"> -->
+                <div class="text g-txt-input ">
+                    <!-- <label for="meme-text">Text:</label> -->
+                    <input type="text" id="meme-text" oninput="onTextChange(this.value)">
+                </div>
+                <!-- <div class="font-size-selectors"> -->
+                <button onclick="onChangeFontSize(this.dataset.size)" data-size="-2"
+                    class="img-size btn-round btn-fonts g-font-m grid-h">
+                    <img src="imgs/icons/decrease-font.png" alt="Decrease Font">
+                </button>
+                <button onclick="onChangeFontSize(this.dataset.size)" data-size="2"
+                    class="img-size btn-round btn-fonts g-font-p grid-h">
+                    <img src="imgs/icons/increase-font.png" alt="Increase font">
+                </button>
+                <button class="img-size btn-round btn-fonts g-fill-clr grid-h">
+                    <label for="fill"><img src="imgs/icons/fill.png" alt="Fill Color">
+                    </label>
+                    <input type="color" oninput="onFillChange(this.value)" value="#c026d1" id="fill">
+                </button>
+                <button class="img-size btn-round btn-fonts g-stroke-clr grid-h">
+                    <label for="stroke"><img src="imgs/icons/stroke.png" alt="Stroke Color"></label>
+                    <input type="color" oninput="onStrokeChange(this.value)" value="#ccb25e" id="stroke">
+                </button>
+                <!-- </div> -->
+                <!-- <div class="stroke-size"> -->
+                <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="-1"
+                    class="img-size btn-round btn-fonts g-stroke-m grid-h img-size-plus"><img src="imgs/icons/my-icons/minue.png" alt=""></button>
+                <div class="g-stroke"> Stoke</div>
+                <button onclick="onChangeStokeWidth(this.dataset.size)" data-size="1"
+                    class="img-size btn-round btn-fonts g-stroke-p grid-h img-size-plus"><img src="imgs/icons/my-icons/plus.png" alt=""></button>
+                <!-- </div> -->
+                <!-- <div class="font-size-selectors"> -->
+                <select class="g-font-style grid-h" onchange="onFontChange(this.value)">
+                    // render this as well
+                    <option value="impact">Impact</option>
+                    <option value="helvetica">Helvetica</option>
+                    <option value="courier">Courier</option>
+                    <option value="papyrus">Papyrus</option>
+                    <option value="cursive">Hand-written</option>
+                </select>
 
 
-                        <button onclick="onTextAlign(this.dataset.align)" data-align="right"
-                            class="img-size btn-round btn-fonts">
-                            <img src="imgs/icons/align-to-left.png" alt="Align left">
-                        </button>
-                        <button onclick="onTextAlign(this.dataset.align)" data-align="center"
-                            class="img-size btn-round btn-fonts">
-                            <img src="imgs/icons/center-text-alignment.png" alt="Align Center">
-                        </button>
-                        <button onclick="onTextAlign(this.dataset.align)" data-align="left"
-                            class="img-size btn-round btn-fonts">
-                            <img src="imgs/icons/align-to-right.png" alt="Align right">
-                        </button>
-                    </div>
-                </div>
-                <div class="move-line-selectors">
-                    <button onclick="onChangeLineX(this.dataset.line)" data-line="-5"
-                        class="btn-round btn-direct">Left</button>
-                    <button onclick="onChangeLineY(this.dataset.line)" data-line="-5"
-                        class="btn-round btn-direct">Up</button>
-                    <button onclick="onChangeLineY(this.dataset.line)" data-line="5"
-                        class="btn-round btn-direct">Down</button>
-                    <button onclick="onChangeLineX(this.dataset.line)" data-line="5"
-                        class="btn-round btn-direct">Right</button>
-                    <input oninput="onInputChange(this.value)" type="range" min="0" max="500" step="10">
-                </div>
-                <div class="line-selectors">
-                    <button onclick="onRemoveLine()" class="btn-round btn-line">Remove Line</button>
-                    <button onclick="onChangeLine()" class="btn-round btn-line img-size"><img
-                            src="imgs/icons/line-up-down.png" alt=""></button>
-                    <button onclick="onAddLine()" class="btn-round btn-line">Add Line</button>
-                </div>
-                <div class="actions-selectors">
-                    <button class="btn-round btn-act"><a href="#" onclick="onDownload(this)"
-                            download="My Creation">Download</a></button>
-                    <button onclick="onSave()" class="btn-round btn-act">Save</button>
-                    <button class="btn-round btn-act btn-share">Share</button>
-                    <!-- <button onclick="onShare()" class="btn-round btn-act btn-share">Share</button> -->
-                </div>
+                <button onclick="onTextAlign(this.dataset.align)" data-align="right"
+                    class="img-size btn-round btn-fonts g-align-l grid-h">
+                    <img src="imgs/icons/align-to-left.png" alt="Align left">
+                </button>
+                <button onclick="onTextAlign(this.dataset.align)" data-align="center"
+                    class="img-size btn-round btn-fonts g-align-c grid-h">
+                    <img src="imgs/icons/center-text-alignment.png" alt="Align Center">
+                </button>
+                <button onclick="onTextAlign(this.dataset.align)" data-align="left"
+                    class="img-size btn-round btn-fonts g-align-r grid-h">
+                    <img src="imgs/icons/align-to-right.png" alt="Align right">
+                </button>
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- <div class="move-line-selectors"> -->
+                <button onclick="onChangeLineX(this.dataset.line)" data-line="-5"
+                    class="btn-round btn-fonts img-size-plus g-line-left grid-h"><img src="imgs/icons/my-icons/left.png"
+                        alt="Left"></button>
+                <button onclick="onChangeLineY(this.dataset.line)" data-line="-5"
+                    class="btn-round btn-fonts img-size-plus g-line-up grid-h"><img src="imgs/icons/my-icons/up.png" alt="Up"></button>
+                <button onclick="onChangeLineY(this.dataset.line)" data-line="5"
+                    class="btn-round btn-fonts img-size-plus g-line-down grid-h"><img src="imgs/icons/my-icons/down.png"
+                        alt="Down"></button>
+                <button onclick="onChangeLineX(this.dataset.line)" data-line="5"
+                    class="btn-round btn-fonts img-size-plus g-line-right grid-h"><img src="imgs/icons/my-icons/right.png"
+                        alt="Right"></button>
+                <input oninput="onInputChange(this.value)" type="range" min="0" max="500" step="10" class="g-range">
+                <!-- </div> -->
+                <!-- <div class="line-selectors"> -->
+                <button onclick="onRemoveLine()" class="btn-round btn-line g-remove-line grid-h">Remove Line</button>
+                <button onclick="onChangeLine()" class="btn-round btn-line img-size g-switch-line grid-h"><img
+                        src="imgs/icons/line-up-down.png" alt=""></button>
+                <button onclick="onAddLine()" class="btn-round btn-line g-add-line grid-h">Add Line</button>
+                <!-- </div> -->
+                <!-- <div class="actions-selectors"> -->
+                <button class="btn-round btn-act g-download grid-h img-size-plus"><a href="#" onclick="onDownload(this)"
+                        download="My Creation"><img src="imgs/icons/my-icons/download.png" alt=""></a></button>
+                <button onclick="onSave()" class="btn-round btn-act g-save grid-h img-size-plus"><img src="imgs/icons/my-icons/save.png" alt=""></button>
+                <button class="btn-round btn-act btn-share g-share grid-h img-size-plus"><img src="imgs/icons/my-icons/share.png" alt=""></button>
             </div>
         </div>
 
@@ -144,7 +147,8 @@
         <div class="container">
             <div class="upload-img">
                 Add your favorite picture:
-                <input type="file" class="btn-round" name="image" onchange="onImgInput(event)" />
+                <label for="file-input">click to add</label>
+                <input type="file" class="btn-round" name="image" onchange="onImgInput(event)" id="file-input" />
                 <div class="filter-by-keyword">
                     Filter by keywords:
                     <!-- <div class="keywords-container"> -->
@@ -160,6 +164,14 @@
             </div>
         </div>
     </section>
+
+    <!-- <footer> -->
+    <!-- <a href='https://pngtree.com/'>PMG from pngtree.com</a> -->
+    <!-- Chevron Right icon icon by Icons8 -->
+
+
+    <!-- </footer> -->
+
     <!-- <script src="lib/hammer.min.js"></script> -->
     <script src="js/touch.service.js"></script>
     <script src="js/storage.service.js"></script>

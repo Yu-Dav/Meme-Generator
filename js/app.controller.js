@@ -1,5 +1,17 @@
 'use strict';
 
+// fa not working?
+// ngrok. 
+// img ratio square? 
+// btns in modal onClickImg modal - add funcs.
+// white rect when downloading should be removed 
+// images -> img 
+// controllers/selectors go for one of them.
+// navbar movment when hovered - need to fix.
+// onBlue to remove input of text imput
+// pics ratio on the canvas needs to be looked at
+// 
+
 var gCanvas;
 var gCtx;
 var gImg;
@@ -14,16 +26,16 @@ function onInit() {
 }
 
 function renderCanvas() {
+    resizeCanvas();
     const img = new Image();
     const memeImg = getImgByID();
     img.src = memeImg.url;
     img.onload = () => {
-        const widthScale = img.naturalWidth / gCanvas.width;
-        const heightScale = img.naturalHeight / gCanvas.height;
-        gCtx.drawImage(img, 0, 0, img.naturalWidth / widthScale, img.naturalHeight / heightScale);
+        const widthRatio = img.naturalWidth / gCanvas.width;
+        const heightRatio = img.naturalHeight / gCanvas.height;
+        gCtx.drawImage(img, 0, 0, img.naturalWidth / widthRatio, img.naturalHeight / heightRatio);
         renderText();
     }
-    resizeCanvas();
 }
 
 function renderText() {
@@ -109,11 +121,15 @@ function onFilterImgByKeyword(keyword) {
 function onSelectImage(imgId) {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    document.querySelector('.meme-editor-container').style.display = 'flex';
+    document.querySelector('.meme-editor-container').classList.add('open-editor');
     updateMeme('img', imgId);
     renderCanvas();
     renderPlaceHolder();
     // only renderText to smear.....
+}
+
+function closeEditor() {
+    document.querySelector('.meme-editor-container').classList.remove('open-editor');
 }
 
 function onInputChange(val) {
@@ -222,7 +238,7 @@ function loadImageFromInput(ev, onImageReady) {
         img.onload = onImageReady.bind(null, img)
         img.src = url
         gImg = img
-        addNewImgToData(url)
+        addNewImgToData(url);
     }
     reader.readAsDataURL(ev.target.files[0])
 }

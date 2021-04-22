@@ -100,6 +100,7 @@ function updateMeme(key, val) {
     if (key === 'fontSize') currMemeLine.size = currMemeLine.size + val;
     if (key === 'lineY') currMemeLine.y = currMemeLine.y + val;
     if (key === 'lineX') currMemeLine.x = currMemeLine.x + val;
+    // += instead 
     if (key === 'x') currMemeLine.x = val;
     if (key === 'y') currMemeLine.y = val;
     if (key === 'fill') currMemeLine.fill = val;
